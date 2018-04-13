@@ -47,7 +47,7 @@ header h2 {
 	margin: 0 auto;
 }
 .task {
-	width: 100%;
+	width: 93%;
 	height: 60px;
 	line-height: 60px;
 	font-size: 20px;
@@ -70,6 +70,7 @@ header h2 {
 }
 
 li span {
+	
   float: right;
   color: #c0392b;
   transition: all 0.3s;

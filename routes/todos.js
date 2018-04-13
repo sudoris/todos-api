@@ -5,7 +5,7 @@ var db = require("../models");
 router.get("/", function(req, res) {
 	db.Todo.find()
 	.then(function(todos) {
-		res.status(201).json(todos); 
+		res.status(200).json(todos); 
 	})
 	.catch(function(err) {
 		res.send(err);
@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
 	db.Todo.create(req.body)
 	.then(function(newTodo) {
-		res.json(newTodo);
+		res.status(201).json(newTodo);
 	})
 });
 
@@ -30,7 +30,10 @@ router.get("/:todoId", function(req, res) {
 });
 
 router.put("/:todoId", function(req, res) {
-	db.Todo.findOneAndUpdate({_id: req.params.todoId}, req.body, {new: true})
+	console.log("in pute route" + req.body);
+
+	// note: {returnNewDocument: true} not working, always returns original document in response
+	db.Todo.findOneAndUpdate({_id: req.params.todoId}, req.body)
 	.then(function(todo) {
 		res.json(todo);
 	})
@@ -42,7 +45,7 @@ router.put("/:todoId", function(req, res) {
 router.delete("/:todoId", function(req, res) {
 	db.Todo.remove({_id: req.params.todoId})
 	.then(function() {
-		res.json({message: "Item deleted"});
+		res.status(200).json({message: "Item deleted"});
 	})
 	.catch(function(err) {
 		res.send(err);
